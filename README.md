@@ -29,12 +29,6 @@ Build:   Verilog · C/C++ · Python · STM32 · FPGA/SoC · KiCad
 Explore: Digital Design · Computer Architecture · Hardware Systems
 ```
 
-## Currently Building
-
-**Line Following Bot PCB**
-
-Designing a compact custom PCB for a line-following robot, focusing on motor control, sensor interfacing, power distribution and a clean hardware architecture.
-
 ## VLSI / RTL
 
 - Verilog RTL design
@@ -55,20 +49,6 @@ Designing a compact custom PCB for a line-following robot, focusing on motor con
 | Programming | C · C++ · Python |
 | RF / Simulation | ADS |
 | Robotics | ROS2 · Sensors · Motor Control |
-
-## Selected Work
-
-### Flight Controller PCB
-STM32-based multi-layer flight-controller hardware with IMU, power management, voltage regulation and EMI-conscious PCB design.
-
-### AI-Assisted Disaster Response Drone
-Computer-vision based aerial system exploring YOLO and Detectron2 for object detection in disaster-response scenarios.
-
-### Secure Wireless Communication
-Implemented an ECC-based approach for secure wireless communication and embedded-system experimentation.
-
-### Stepper Motor Controller PCB
-Custom PCB for stepper-motor control, integrating the controller, power circuitry and peripheral interfaces.
 
 ## GitHub Activity
 
