@@ -50,7 +50,7 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 | RF / Simulation | ADS |
 | Robotics | ROS2 · Sensors · Motor Control |
 
-## GitHub Activity
+## 📊 GitHub Activity
 
 <div align="center">
 
@@ -59,7 +59,7 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 </div>
 
-## Contribution Graph
+## 🐍 Contribution Graph
 
 <div align="center">
 
