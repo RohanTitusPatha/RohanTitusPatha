@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="1200" height="260">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="260" rx="18" fill="url(#bg)"/>
+  <g fill="none" stroke="#30363d" stroke-width="1" opacity=".65">
+    <path d="M0 52H250V25H430V70H650V35H860V78H1200"/>
+    <path d="M0 210H180V175H350V225H540V190H760V235H980V200H1200"/>
+    <path d="M90 0V260M300 0V260M520 0V260M735 0V260M950 0V260"/>
+  </g>
+  <g fill="none" stroke="#58a6ff" stroke-width="2" opacity=".9" filter="url(#glow)">
+    <path d="M0 145H120V105H170V185H220V105H270V145H330V145H380V95H430V195H480V145H560V145H610V105H660V185H710V145H790V145H840V95H890V195H940V145H1020V145H1070V105H1120V185H1170V145H1200" stroke-dasharray="12 8">
+      <animate attributeName="stroke-dashoffset" from="0" to="-160" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <g fill="#58a6ff" opacity=".9">
+    <circle cx="120" cy="145" r="4"><animate attributeName="opacity" values=".2;1;.2" dur="1.4s" repeatCount="indefinite"/></circle>
+    <circle cx="380" cy="95" r="4"><animate attributeName="opacity" values=".2;1;.2" dur="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="610" cy="105" r="4"><animate attributeName="opacity" values=".2;1;.2" dur="1.2s" repeatCount="indefinite"/></circle>
+    <circle cx="840" cy="95" r="4"><animate attributeName="opacity" values=".2;1;.2" dur="1.6s" repeatCount="indefinite"/></circle>
+  </g>
+  <g fill="#f0f6fc" text-anchor="middle" font-family="Arial,Helvetica,sans-serif">
+    <text x="600" y="112" font-size="42" font-weight="700">ROHAN TITUS</text>
+    <text x="600" y="145" font-size="16" fill="#8b949e" letter-spacing="3">ELECTRONICS · VLSI · RTL · EMBEDDED</text>
+  </g>
+</svg>
