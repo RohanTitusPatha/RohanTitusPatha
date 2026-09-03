@@ -54,12 +54,8 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=RohanTitusPatha&show_icons=true&hide_border=true&rank_icon=github&theme=github_dark&include_all_commits=true" height="165" />
+<img src="https://github-readme-stats.vercel.app/api?username=RohanTitusPatha&show_icons=true&hide_border=true&theme=github_dark&include_all_commits=true" height="165" />
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RohanTitusPatha&layout=compact&hide_border=true&theme=github_dark&langs_count=8" height="165" />
-
-<br/>
-
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=RohanTitusPatha&theme=github-dark-blue&hide_border=true" width="65%" />
 
 </div>
 
