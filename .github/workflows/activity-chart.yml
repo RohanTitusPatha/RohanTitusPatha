@@ -1,0 +1,92 @@
+name: Generate GitHub Activity Chart
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch contribution data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -sS https://api.github.com/graphql \
+            -H "Authorization: bearer $GH_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"query":"query { user(login: \"${{ github.repository_owner }}\") { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }"}' \
+            -o activity.json
+
+      - name: Build activity chart
+        run: |
+          python3 <<'PY'
+          import json
+          from datetime import datetime
+          from pathlib import Path
+
+          data = json.load(open("activity.json"))
+          cal = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+          weeks = cal["weeks"][-53:]
+          totals = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in weeks]
+          total = cal["totalContributions"]
+          peak = max(totals) if totals else 0
+
+          W, H = 900, 300
+          left, right, top, bottom = 58, 24, 54, 52
+          pw, ph = W-left-right, H-top-bottom
+          ymax = max(5, peak)
+          step = pw / max(1, len(totals)-1)
+
+          points = []
+          for i, v in enumerate(totals):
+              x = left + i * step
+              y = top + ph - (v / ymax) * ph
+              points.append((x, y, v))
+
+          path = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}" for i,(x,y,_) in enumerate(points))
+          area = path + f" L{points[-1][0]:.1f},{top+ph} L{points[0][0]:.1f},{top+ph} Z"
+
+          labels = []
+          for i, w in enumerate(weeks):
+              if i == 0 or i % 4 == 0:
+                  d = datetime.fromisoformat(w["firstDay"] if "firstDay" in w else w["contributionDays"][0]["date"])
+                  labels.append((left+i*step, d.strftime("%b")))
+
+          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
+            <rect width="100%" height="100%" rx="14" fill="#0d1117"/>
+            <text x="32" y="32" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
+            <text x="868" y="32" text-anchor="end" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">{total:,} contributions · last year</text>
+            <line x1="{left}" y1="{top+ph}" x2="{W-right}" y2="{top+ph}" stroke="#30363d"/>
+            <line x1="{left}" y1="{top}" x2="{left}" y2="{top+ph}" stroke="#30363d"/>
+            <line x1="{left}" y1="{top+ph/2}" x2="{W-right}" y2="{top+ph/2}" stroke="#21262d" stroke-dasharray="3 5"/>
+            <path d="{area}" fill="#58a6ff" opacity="0.10"/>
+            <path d="{path}" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="{points[-1][0]:.1f}" cy="{points[-1][1]:.1f}" r="4.5" fill="#58a6ff"/>
+            <text x="{left-10}" y="{top+5}" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="11">{ymax}</text>
+            <text x="{left-10}" y="{top+ph/2+4}" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="11">{ymax//2}</text>
+            <text x="{left-10}" y="{top+ph+4}" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="11">0</text>
+            {''.join(f'<text x="{x:.1f}" y="{H-20}" text-anchor="middle" fill="#8b949e" font-family="monospace" font-size="11">{m}</text>' for x,m in labels)}
+            <text x="{W-right}" y="{H-20}" text-anchor="end" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="11">peak week: {peak}</text>
+          </svg>'''
+
+          Path("profile").mkdir(exist_ok=True)
+          Path("profile/activity.svg").write_text(svg)
+          PY
+
+      - name: Commit chart
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/activity.svg
+          git commit -m "Update GitHub activity chart" || exit 0
+          git push
