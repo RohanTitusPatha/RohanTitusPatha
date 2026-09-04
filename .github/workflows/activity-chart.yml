@@ -43,38 +43,37 @@ jobs:
               ("Repositories", c["totalRepositoryContributions"]),
           ]
 
-          W, H = 900, 300
-          cx, cy = 450, 150
-          radius = 108
-          circumference = 2 * math.pi * radius
+          W, H = 900, 320
+          cx, cy = 390, 172
           colors = ["#58a6ff", "#a371f7", "#3fb950", "#f0883e"]
-
           rings = []
+
           for i, ((label, value), color) in enumerate(zip(metrics, colors)):
-              r = radius - i * 18
+              r = 104 - i * 17
               circ = 2 * math.pi * r
               pct = min(value / max(total, 1), 1)
               dash = circ * pct
-              rings.append(f'''<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#21262d" stroke-width="10"/>
-          <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="{dash:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>''')
+              rings.append(f'''<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#21262d" stroke-width="11"/>
+          <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round" stroke-dasharray="{dash:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>''')
 
           legend = []
           for i, ((label, value), color) in enumerate(zip(metrics, colors)):
-              y = 78 + i * 48
-              legend.append(f'''<circle cx="705" cy="{y}" r="5" fill="{color}"/>
-          <text x="720" y="{y+5}" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">{label}</text>
+              y = 92 + i * 48
+              legend.append(f'''<circle cx="650" cy="{y}" r="5" fill="{color}"/>
+          <text x="665" y="{y+5}" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">{label}</text>
           <text x="850" y="{y+5}" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="12">{value:,}</text>''')
 
           svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
           <rect width="100%" height="100%" rx="16" fill="#0d1117"/>
-          <text x="36" y="38" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
-          <text x="36" y="60" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">Contribution breakdown · last year</text>
+          <text x="34" y="38" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
+          <text x="34" y="59" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">Contribution breakdown · last year</text>
           {''.join(rings)}
-          <text x="450" y="145" text-anchor="middle" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="700">{total:,}</text>
-          <text x="450" y="166" text-anchor="middle" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="11">CONTRIBUTIONS</text>
-          <line x1="640" y1="68" x2="640" y2="250" stroke="#21262d"/>
+          <circle cx="{cx}" cy="{cy}" r="58" fill="#0d1117"/>
+          <text x="{cx}" y="{cy-3}" text-anchor="middle" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="700">{total:,}</text>
+          <text x="{cx}" y="{cy+18}" text-anchor="middle" fill="#8b949e" font-family="monospace" font-size="10">CONTRIBUTIONS</text>
+          <line x1="570" y1="70" x2="570" y2="270" stroke="#21262d"/>
           {''.join(legend)}
-          <text x="36" y="270" fill="#484f58" font-family="monospace" font-size="10">ROHAN TITUS / ELECTRONICS · VLSI · RTL · EMBEDDED</text>
+          <text x="34" y="286" fill="#484f58" font-family="monospace" font-size="10">ROHAN TITUS / ELECTRONICS · VLSI · RTL · EMBEDDED</text>
           </svg>'''
 
           Path("profile").mkdir(exist_ok=True)
