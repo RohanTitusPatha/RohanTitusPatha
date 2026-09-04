@@ -54,7 +54,7 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="./profile/activity.svg" width="100%" alt="GitHub contribution activity chart" />
+<img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/main/profile/activity.svg?v=3" width="100%" alt="GitHub contribution activity dashboard" />
 
 <br/>
 
@@ -69,9 +69,9 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg">
-  <img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg" width="100%" alt="Contribution snake animation" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake-dark.svg?v=2">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg?v=2">
+  <img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg?v=2" width="100%" alt="Contribution snake animation" />
 </picture>
 
 </div>
