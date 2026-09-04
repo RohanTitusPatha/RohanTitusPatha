@@ -54,8 +54,8 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=RohanTitusPatha&show_icons=true&hide_border=true&theme=github_dark&include_all_commits=true" height="165" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RohanTitusPatha&layout=compact&hide_border=true&theme=github_dark&langs_count=8" height="165" />
+<img src="./profile/stats.svg" width="49%" alt="GitHub statistics" />
+<img src="./profile/top-langs.svg" width="49%" alt="Top programming languages" />
 
 </div>
 
@@ -63,7 +63,11 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg" width="100%" alt="Contribution snake animation" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg">
+  <img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/output/github-contribution-grid-snake.svg" width="100%" alt="Contribution snake animation" />
+</picture>
 
 </div>
 
