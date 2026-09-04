@@ -54,8 +54,10 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="./profile/stats.svg" width="49%" alt="GitHub statistics" />
-<img src="./profile/top-langs.svg" width="49%" alt="Top programming languages" />
+[![Followers](https://img.shields.io/github/followers/RohanTitusPatha?style=flat-square&label=Followers)](https://github.com/RohanTitusPatha)
+[![Public Repositories](https://img.shields.io/badge/Public%20Repositories-View-58A6FF?style=flat-square&logo=github)](https://github.com/RohanTitusPatha?tab=repositories)
+[![Commit Activity](https://img.shields.io/github/commit-activity/y/RohanTitusPatha/RohanTitusPatha?style=flat-square&label=Commits%2Fyear)](https://github.com/RohanTitusPatha)
+[![Total Stars](https://img.shields.io/github/stars/RohanTitusPatha?affiliations=OWNER&style=flat-square&label=Stars)](https://github.com/RohanTitusPatha?tab=repositories)
 
 </div>
 
