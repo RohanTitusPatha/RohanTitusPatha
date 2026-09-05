@@ -50,11 +50,11 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 | RF / Simulation | ADS |
 | Robotics | ROS2 · Sensors · Motor Control |
 
-## 📊 GitHub Activity
+## GitHub Activity
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/main/profile/activity.svg?v=3" width="100%" alt="GitHub contribution activity dashboard" />
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=RohanTitusPatha&bg_color=0d1117&color=58a6ff&line=58a6ff&point=f0f6fc&area=true&hide_border=true" width="100%" alt="GitHub activity graph" />
 
 <br/>
 
@@ -64,7 +64,7 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 </div>
 
-## 🐍 Contribution Graph
+## Contribution Graph
 
 <div align="center">
 
