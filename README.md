@@ -54,7 +54,7 @@ Explore: Digital Design · Computer Architecture · Hardware Systems
 
 <div align="center">
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=RohanTitusPatha&bg_color=0d1117&color=58a6ff&line=58a6ff&point=f0f6fc&area=true&hide_border=true" width="100%" alt="GitHub activity graph" />
+<img src="https://raw.githubusercontent.com/RohanTitusPatha/RohanTitusPatha/main/profile/activity.svg?v=4" width="100%" alt="GitHub activity" />
 
 <br/>
 
