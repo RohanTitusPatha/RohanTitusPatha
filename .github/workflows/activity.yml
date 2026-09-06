@@ -1,0 +1,110 @@
+name: Update GitHub Activity
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-activity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate live activity SVG
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          from datetime import datetime, timedelta, timezone
+
+          end = datetime.now(timezone.utc)
+          start = end - timedelta(days=365)
+          query = '''query($login:String!, $from:DateTime!, $to:DateTime!) {
+            user(login:$login) {
+              contributionsCollection(from:$from, to:$to) {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays { contributionCount date }
+                  }
+                }
+              }
+            }
+          }'''
+
+          variables = {
+              "login": "RohanTitusPatha",
+              "from": start.isoformat().replace('+00:00','Z'),
+              "to": end.isoformat().replace('+00:00','Z')
+          }
+
+          payload = json.dumps({"query": query, "variables": variables})
+          result = subprocess.run(
+              ["gh", "api", "graphql", "-f", f"query={query}",
+               "-F", f"login=RohanTitusPatha",
+               "-F", f"from={variables['from']}",
+               "-F", f"to={variables['to']}"],
+              check=True, capture_output=True, text=True,
+              env={**os.environ, "GH_TOKEN": os.environ["GH_TOKEN"]}
+          )
+          data = json.loads(result.stdout)
+          cal = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+          total = cal["totalContributions"]
+          weeks = [sum(d["contributionCount"] for d in w["contributionDays"]) for w in cal["weeks"]]
+          peak = max(weeks) if weeks else 0
+
+          pct = min(1.0, total / max(1, max(total, 200)))
+          dash = 641 * pct
+
+          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+          <rect width="900" height="300" rx="14" fill="#0d1117"/>
+          <text x="32" y="34" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
+          <text x="868" y="34" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="12">ACTIVITY // LAST YEAR</text>
+          <g transform="translate(300 158)">
+            <circle r="102" fill="none" stroke="#21262d" stroke-width="18"/>
+            <circle r="102" fill="none" stroke="#58a6ff" stroke-width="18" stroke-linecap="round" stroke-dasharray="{dash:.1f} 641" transform="rotate(-90)"/>
+            <circle r="78" fill="none" stroke="#30363d" stroke-width="2" stroke-dasharray="3 7"/>
+            <text y="-8" text-anchor="middle" fill="#f0f6fc" font-family="monospace" font-size="34" font-weight="700">{total}</text>
+            <text y="18" text-anchor="middle" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">CONTRIBUTIONS</text>
+            <text y="38" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="10">ACTIVE</text>
+          </g>
+          <g transform="translate(475 70)">
+            <rect width="360" height="62" rx="10" fill="#161b22" stroke="#30363d"/>
+            <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">ACTIVITY STATUS</text>
+            <text x="20" y="47" fill="#f0f6fc" font-family="monospace" font-size="15">BUILDING / SHIPPING / LEARNING</text>
+          </g>
+          <g transform="translate(475 145)">
+            <rect width="360" height="62" rx="10" fill="#161b22" stroke="#30363d"/>
+            <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">PEAK WEEK</text>
+            <text x="20" y="47" fill="#f0f6fc" font-family="monospace" font-size="15">{peak} CONTRIBUTIONS</text>
+          </g>
+          <g transform="translate(475 220)">
+            <rect width="360" height="40" rx="10" fill="#161b22" stroke="#30363d"/>
+            <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">FOCUS</text>
+            <text x="105" y="25" fill="#58a6ff" font-family="monospace" font-size="10">RTL / EMBEDDED / HARDWARE</text>
+          </g>
+          <text x="32" y="278" fill="#484f58" font-family="monospace" font-size="10">ROHAN TITUS / DIGITAL HARDWARE PROFILE</text>
+          </svg>'''
+
+          with open("activity.svg", "w", encoding="utf-8") as f:
+              f.write(svg)
+          PY
+
+      - name: Commit updated activity SVG
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+          cp activity.svg repo/profile/activity.svg
+          cd repo
+          git add profile/activity.svg
+          git diff --cached --quiet && exit 0
+          git commit -m "Update GitHub activity stats"
+          git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
