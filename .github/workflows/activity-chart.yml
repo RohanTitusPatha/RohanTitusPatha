@@ -3,8 +3,10 @@ name: Generate GitHub Activity Chart
 on:
   push:
     branches: [main]
+
   schedule:
     - cron: "30 0 * * *"
+
   workflow_dispatch:
 
 permissions:
@@ -14,6 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
     steps:
       - uses: actions/checkout@v4
 
@@ -27,15 +30,45 @@ jobs:
             --data '{"query":"query { user(login: \"${{ github.repository_owner }}\") { contributionsCollection { totalContributions totalCommitContributions totalPullRequestContributions totalIssueContributions totalRepositoryContributions } } }"}' \
             -o activity.json
 
+          python3 <<'PY'
+          import json
+          import sys
+
+          with open("activity.json") as f:
+              data = json.load(f)
+
+          if "errors" in data:
+              print("GitHub GraphQL returned an error:")
+              print(json.dumps(data["errors"], indent=2))
+              sys.exit(1)
+
+          if "data" not in data:
+              print("Unexpected GitHub API response:")
+              print(json.dumps(data, indent=2))
+              sys.exit(1)
+
+          if data["data"].get("user") is None:
+              print("GitHub user was not found in GraphQL response.")
+              sys.exit(1)
+
+          print("Contribution data fetched successfully.")
+          PY
+
       - name: Build circular activity dashboard
         run: |
           python3 <<'PY'
-          import json, math
+          import json
+          import math
           from pathlib import Path
 
-          data = json.load(open("activity.json"))
-          c = data["data"]["user"]["contributionsCollection"]
+          with open("activity.json") as f:
+              data = json.load(f)
+
+          user = data["data"]["user"]
+          c = user["contributionsCollection"]
+
           total = c["totalContributions"]
+
           metrics = [
               ("Commits", c["totalCommitContributions"]),
               ("Pull Requests", c["totalPullRequestContributions"]),
@@ -45,7 +78,14 @@ jobs:
 
           W, H = 900, 320
           cx, cy = 390, 172
-          colors = ["#58a6ff", "#a371f7", "#3fb950", "#f0883e"]
+
+          colors = [
+              "#58a6ff",
+              "#a371f7",
+              "#3fb950",
+              "#f0883e"
+          ]
+
           rings = []
 
           for i, ((label, value), color) in enumerate(zip(metrics, colors)):
@@ -53,37 +93,168 @@ jobs:
               circ = 2 * math.pi * r
               pct = min(value / max(total, 1), 1)
               dash = circ * pct
-              rings.append(f'''<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#21262d" stroke-width="11"/>
-          <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="11" stroke-linecap="round" stroke-dasharray="{dash:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>''')
+
+              rings.append(
+                  f'''<circle
+                  cx="{cx}"
+                  cy="{cy}"
+                  r="{r}"
+                  fill="none"
+                  stroke="#21262d"
+                  stroke-width="11"
+                  />
+
+                  <circle
+                  cx="{cx}"
+                  cy="{cy}"
+                  r="{r}"
+                  fill="none"
+                  stroke="{color}"
+                  stroke-width="11"
+                  stroke-linecap="round"
+                  stroke-dasharray="{dash:.1f} {circ:.1f}"
+                  transform="rotate(-90 {cx} {cy})"
+                  />'''
+              )
 
           legend = []
+
           for i, ((label, value), color) in enumerate(zip(metrics, colors)):
               y = 92 + i * 48
-              legend.append(f'''<circle cx="650" cy="{y}" r="5" fill="{color}"/>
-          <text x="665" y="{y+5}" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">{label}</text>
-          <text x="850" y="{y+5}" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="12">{value:,}</text>''')
 
-          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
-          <rect width="100%" height="100%" rx="16" fill="#0d1117"/>
-          <text x="34" y="38" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
-          <text x="34" y="59" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">Contribution breakdown · last year</text>
+              legend.append(
+                  f'''<circle
+                  cx="650"
+                  cy="{y}"
+                  r="5"
+                  fill="{color}"
+                  />
+
+                  <text
+                  x="665"
+                  y="{y+5}"
+                  fill="#f0f6fc"
+                  font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+                  font-size="13"
+                  >
+                  {label}
+                  </text>
+
+                  <text
+                  x="850"
+                  y="{y+5}"
+                  text-anchor="end"
+                  fill="#8b949e"
+                  font-family="monospace"
+                  font-size="12"
+                  >
+                  {value:,}
+                  </text>'''
+              )
+
+          svg = f'''<svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="{W}"
+          height="{H}"
+          viewBox="0 0 {W} {H}"
+          >
+
+          <rect
+          width="100%"
+          height="100%"
+          rx="16"
+          fill="#0d1117"
+          />
+
+          <text
+          x="34"
+          y="38"
+          fill="#f0f6fc"
+          font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+          font-size="18"
+          font-weight="600"
+          >
+          GitHub Activity
+          </text>
+
+          <text
+          x="34"
+          y="59"
+          fill="#8b949e"
+          font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+          font-size="12"
+          >
+          Contribution breakdown · last year
+          </text>
+
           {''.join(rings)}
-          <circle cx="{cx}" cy="{cy}" r="58" fill="#0d1117"/>
-          <text x="{cx}" y="{cy-3}" text-anchor="middle" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="700">{total:,}</text>
-          <text x="{cx}" y="{cy+18}" text-anchor="middle" fill="#8b949e" font-family="monospace" font-size="10">CONTRIBUTIONS</text>
-          <line x1="570" y1="70" x2="570" y2="270" stroke="#21262d"/>
+
+          <circle
+          cx="{cx}"
+          cy="{cy}"
+          r="58"
+          fill="#0d1117"
+          />
+
+          <text
+          x="{cx}"
+          y="{cy-3}"
+          text-anchor="middle"
+          fill="#f0f6fc"
+          font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+          font-size="28"
+          font-weight="700"
+          >
+          {total:,}
+          </text>
+
+          <text
+          x="{cx}"
+          y="{cy+18}"
+          text-anchor="middle"
+          fill="#8b949e"
+          font-family="monospace"
+          font-size="10"
+          >
+          CONTRIBUTIONS
+          </text>
+
+          <line
+          x1="570"
+          y1="70"
+          x2="570"
+          y2="270"
+          stroke="#21262d"
+          />
+
           {''.join(legend)}
-          <text x="34" y="286" fill="#484f58" font-family="monospace" font-size="10">ROHAN TITUS / ELECTRONICS · VLSI · RTL · EMBEDDED</text>
+
+          <text
+          x="34"
+          y="286"
+          fill="#484f58"
+          font-family="monospace"
+          font-size="10"
+          >
+          ROHAN TITUS / ELECTRONICS · VLSI · RTL · EMBEDDED
+          </text>
+
           </svg>'''
 
           Path("profile").mkdir(exist_ok=True)
           Path("profile/activity.svg").write_text(svg)
+
+          print("Activity SVG generated successfully.")
           PY
 
       - name: Commit dashboard
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add profile/activity.svg
-          git commit -m "Update circular GitHub activity dashboard" || exit 0
+
+          git diff --cached --quiet && exit 0
+
+          git commit -m "Update circular GitHub activity dashboard"
           git push
