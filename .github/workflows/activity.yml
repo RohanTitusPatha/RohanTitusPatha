@@ -105,6 +105,7 @@ jobs:
           git add profile/activity.svg
           git diff --cached --quiet && exit 0
           git commit -m "Update GitHub activity stats"
+          git pull --rebase origin main
           git push
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
