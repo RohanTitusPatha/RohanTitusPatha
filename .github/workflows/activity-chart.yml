@@ -27,7 +27,7 @@ jobs:
           curl -sS https://api.github.com/graphql \
             -H "Authorization: bearer $GH_TOKEN" \
             -H "Content-Type: application/json" \
-            --data '{"query":"query { user(login: \"${{ github.repository_owner }}\") { contributionsCollection { totalContributions totalCommitContributions totalPullRequestContributions totalIssueContributions totalRepositoryContributions } } }"}' \
+            --data '{"query":"query { user(login: \"${{ github.repository_owner }}\") { contributionsCollection { totalCommitContributions totalPullRequestContributions totalIssueContributions totalRepositoryContributions } } }"}' \
             -o activity.json
 
           python3 <<'PY'
@@ -67,14 +67,14 @@ jobs:
           user = data["data"]["user"]
           c = user["contributionsCollection"]
 
-          total = c["totalContributions"]
-
           metrics = [
               ("Commits", c["totalCommitContributions"]),
               ("Pull Requests", c["totalPullRequestContributions"]),
               ("Issues", c["totalIssueContributions"]),
               ("Repositories", c["totalRepositoryContributions"]),
           ]
+
+          total = sum(value for _, value in metrics)
 
           W, H = 900, 320
           cx, cy = 390, 172
