@@ -1,29 +1,268 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
-<rect width="900" height="300" rx="14" fill="#0d1117"/>
-<text x="32" y="34" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="600">GitHub Activity</text>
-<text x="868" y="34" text-anchor="end" fill="#8b949e" font-family="monospace" font-size="12">ACTIVITY // LAST YEAR</text>
-<g transform="translate(300 158)">
-  <circle r="102" fill="none" stroke="#21262d" stroke-width="18"/>
-  <circle r="102" fill="none" stroke="#58a6ff" stroke-width="18" stroke-linecap="round" stroke-dasharray="275.6 641" transform="rotate(-90)"/>
-  <circle r="78" fill="none" stroke="#30363d" stroke-width="2" stroke-dasharray="3 7"/>
-  <text y="-8" text-anchor="middle" fill="#f0f6fc" font-family="monospace" font-size="34" font-weight="700">86</text>
-  <text y="18" text-anchor="middle" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12">CONTRIBUTIONS</text>
-  <text y="38" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="10">ACTIVE</text>
-</g>
-<g transform="translate(475 70)">
-  <rect width="360" height="62" rx="10" fill="#161b22" stroke="#30363d"/>
-  <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">ACTIVITY STATUS</text>
-  <text x="20" y="47" fill="#f0f6fc" font-family="monospace" font-size="15">BUILDING / SHIPPING / LEARNING</text>
-</g>
-<g transform="translate(475 145)">
-  <rect width="360" height="62" rx="10" fill="#161b22" stroke="#30363d"/>
-  <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">PEAK WEEK</text>
-  <text x="20" y="47" fill="#f0f6fc" font-family="monospace" font-size="15">29 CONTRIBUTIONS</text>
-</g>
-<g transform="translate(475 220)">
-  <rect width="360" height="40" rx="10" fill="#161b22" stroke="#30363d"/>
-  <text x="20" y="25" fill="#8b949e" font-family="monospace" font-size="10">FOCUS</text>
-  <text x="105" y="25" fill="#58a6ff" font-family="monospace" font-size="10">RTL / EMBEDDED / HARDWARE</text>
-</g>
-<text x="32" y="278" fill="#484f58" font-family="monospace" font-size="10">ROHAN TITUS / DIGITAL HARDWARE PROFILE</text>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+width="900"
+height="320"
+viewBox="0 0 900 320"
+>
+
+<rect
+width="100%"
+height="100%"
+rx="16"
+fill="#0d1117"
+/>
+
+<text
+x="34"
+y="38"
+fill="#f0f6fc"
+font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+font-size="18"
+font-weight="600"
+>
+GitHub Activity
+</text>
+
+<text
+x="34"
+y="59"
+fill="#8b949e"
+font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+font-size="12"
+>
+Contribution breakdown · last year
+</text>
+
+<circle
+        cx="390"
+        cy="172"
+        r="104"
+        fill="none"
+        stroke="#21262d"
+        stroke-width="11"
+        />
+
+        <circle
+        cx="390"
+        cy="172"
+        r="104"
+        fill="none"
+        stroke="#58a6ff"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-dasharray="586.6 653.5"
+        transform="rotate(-90 390 172)"
+        /><circle
+        cx="390"
+        cy="172"
+        r="87"
+        fill="none"
+        stroke="#21262d"
+        stroke-width="11"
+        />
+
+        <circle
+        cx="390"
+        cy="172"
+        r="87"
+        fill="none"
+        stroke="#a371f7"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-dasharray="0.0 546.6"
+        transform="rotate(-90 390 172)"
+        /><circle
+        cx="390"
+        cy="172"
+        r="70"
+        fill="none"
+        stroke="#21262d"
+        stroke-width="11"
+        />
+
+        <circle
+        cx="390"
+        cy="172"
+        r="70"
+        fill="none"
+        stroke="#3fb950"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-dasharray="0.0 439.8"
+        transform="rotate(-90 390 172)"
+        /><circle
+        cx="390"
+        cy="172"
+        r="53"
+        fill="none"
+        stroke="#21262d"
+        stroke-width="11"
+        />
+
+        <circle
+        cx="390"
+        cy="172"
+        r="53"
+        fill="none"
+        stroke="#f0883e"
+        stroke-width="11"
+        stroke-linecap="round"
+        stroke-dasharray="34.1 333.0"
+        transform="rotate(-90 390 172)"
+        />
+
+<circle
+cx="390"
+cy="172"
+r="58"
+fill="#0d1117"
+/>
+
+<text
+x="390"
+y="169"
+text-anchor="middle"
+fill="#f0f6fc"
+font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+font-size="28"
+font-weight="700"
+>
+88
+</text>
+
+<text
+x="390"
+y="190"
+text-anchor="middle"
+fill="#8b949e"
+font-family="monospace"
+font-size="10"
+>
+CONTRIBUTIONS
+</text>
+
+<line
+x1="570"
+y1="70"
+x2="570"
+y2="270"
+stroke="#21262d"
+/>
+
+<circle
+        cx="650"
+        cy="92"
+        r="5"
+        fill="#58a6ff"
+        />
+
+        <text
+        x="665"
+        y="97"
+        fill="#f0f6fc"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+        font-size="13"
+        >
+        Commits
+        </text>
+
+        <text
+        x="850"
+        y="97"
+        text-anchor="end"
+        fill="#8b949e"
+        font-family="monospace"
+        font-size="12"
+        >
+        79
+        </text><circle
+        cx="650"
+        cy="140"
+        r="5"
+        fill="#a371f7"
+        />
+
+        <text
+        x="665"
+        y="145"
+        fill="#f0f6fc"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+        font-size="13"
+        >
+        Pull Requests
+        </text>
+
+        <text
+        x="850"
+        y="145"
+        text-anchor="end"
+        fill="#8b949e"
+        font-family="monospace"
+        font-size="12"
+        >
+        0
+        </text><circle
+        cx="650"
+        cy="188"
+        r="5"
+        fill="#3fb950"
+        />
+
+        <text
+        x="665"
+        y="193"
+        fill="#f0f6fc"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+        font-size="13"
+        >
+        Issues
+        </text>
+
+        <text
+        x="850"
+        y="193"
+        text-anchor="end"
+        fill="#8b949e"
+        font-family="monospace"
+        font-size="12"
+        >
+        0
+        </text><circle
+        cx="650"
+        cy="236"
+        r="5"
+        fill="#f0883e"
+        />
+
+        <text
+        x="665"
+        y="241"
+        fill="#f0f6fc"
+        font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"
+        font-size="13"
+        >
+        Repositories
+        </text>
+
+        <text
+        x="850"
+        y="241"
+        text-anchor="end"
+        fill="#8b949e"
+        font-family="monospace"
+        font-size="12"
+        >
+        9
+        </text>
+
+<text
+x="34"
+y="286"
+fill="#484f58"
+font-family="monospace"
+font-size="10"
+>
+ROHAN TITUS / ELECTRONICS · VLSI · RTL · EMBEDDED
+</text>
+
 </svg>
